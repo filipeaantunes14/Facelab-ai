@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101114"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FaceLab AI">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg"><title>FaceLab AI</title>
+<style>
+:root{color-scheme:dark;--bg:#101114;--panel:#1a1b22;--line:#343541;--muted:#a6a7b3;--accent:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#28213d 0,#101114 46%);color:#f7f7fb;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:760px;margin:auto;padding:18px 14px 36px}.brand{display:flex;align-items:center;gap:10px;margin:8px 0 26px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#c4b5fd,#7c3aed);display:grid;place-items:center;color:#181020;font-size:23px;font-weight:900}.brand strong{font-size:19px}.brand small{display:block;color:var(--muted);margin-top:3px}
+.pill{display:inline-block;border:1px solid #514075;background:#29213d;color:#dfd3ff;padding:6px 10px;border-radius:99px;font-size:11px;margin-bottom:12px}.hero h1{font-size:32px;line-height:1.08;letter-spacing:-.7px;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.5;margin:0 0 20px}.card{background:rgba(26,27,34,.95);border:1px solid var(--line);border-radius:19px;padding:15px;margin:14px 0}.card h2{font-size:16px;margin:0 0 6px}.sub{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 13px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mode{padding:12px;border:1px solid var(--line);border-radius:13px;background:#13141a;color:#f7f7fb;text-align:left;cursor:pointer}.mode b{display:block;font-size:13px;margin-bottom:5px}.mode span{display:block;color:var(--muted);font-size:11px;line-height:1.4}.mode.active{border-color:var(--accent);background:#2a2140}.primary,.secondary{display:block;width:100%;border-radius:13px;padding:14px;text-align:center;font-weight:750;text-decoration:none;font-size:14px;margin-top:11px}.primary{background:linear-gradient(100deg,#c4b5fd,#8b5cf6);color:#171020;border:0}.secondary{border:1px solid #4a4658;color:#e9e2ff;background:#1a1722}.engine{height:680px;width:100%;border:0;border-radius:13px;background:#fff;margin-top:12px}.notice{background:#26212f;border:1px solid #4a3c62;border-radius:12px;padding:12px;color:#ddd2f5;font-size:12px;line-height:1.5;margin-top:12px}.status{color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px}.foot{text-align:center;color:#777987;font-size:11px;line-height:1.5;margin:22px 0 0}@media(max-width:420px){.engine{height:720px}.hero h1{font-size:30px}.modes{grid-template-columns:1fr}}
+</style></head>
+<body><main>
+<header class="brand"><div class="logo">F</div><div><strong>FaceLab AI</strong><small>O teu estúdio de substituição de personagens</small></div></header>
+<section class="hero"><span class="pill">BETA · MOTOR IA EXPERIMENTAL</span><h1>Substitui a personagem.<br>Mantém o movimento.</h1><p>Escolhe se queres animar uma fotografia tua ou substituir a pessoa de um vídeo. A geração é feita por um motor de IA externo.</p></section>
+<section class="card"><h2>Escolhe o que queres fazer</h2><p class="sub">Seleciona um modo para abrir a ferramenta de processamento adequada.</p>
+<div class="modes">
+<button class="mode active" data-mode="mix"><b>Trocar a pessoa inteira</b><span>Substitui a personagem no vídeo, podendo alterar corpo e roupa.</span></button>
+<button class="mode" data-mode="move"><b>Animar a minha foto</b><span>Transfere os movimentos do vídeo para a personagem da fotografia.</span></button>
+</div>
+<div class="notice"><b>Como usar:</b> na ferramenta abaixo, carrega uma imagem tua (de corpo inteiro para melhores resultados) e um vídeo curto. Escolhe <b>Mix / Character Swap</b> para substituir a pessoa ou <b>Move / Pose Retarget</b> para animar a tua imagem.</div>
+<a id="openEngine" class="primary" href="https://ia7cast-wan2-2-animate.hf.space" target="_blank" rel="noopener">Abrir motor de IA</a>
+<div class="status">A ferramenta externa pode ter filas, limites, falhas ou alterar as condições gratuitas. A FaceLab AI não controla esses limites.</div>
+<iframe id="engine" class="engine" src="https://ia7cast-wan2-2-animate.hf.space" title="Motor IA de substituição de personagem" loading="lazy" allow="clipboard-read; clipboard-write"></iframe>
+<div class="notice">Se a ferramenta não carregar dentro desta página, toca em “Abrir motor de IA”. O processamento acontece nos servidores do operador externo; não envies vídeos íntimos ou de outras pessoas sem autorização.</div>
+</section>
+<section class="card"><h2>O que já está ligado nesta versão</h2><p class="sub">Interface FaceLab AI + acesso ao motor Wan2.2 Animate comunitário. O motor pode trocar a personagem inteira ou transferir movimentos a partir de uma imagem. Não é um servidor próprio e não garante disponibilidade permanente.</p></section>
+<p class="foot">FaceLab AI · Protótipo pessoal · Usa apenas imagens e vídeos para os quais tens autorização.</p>
+</main>
+<script>
+let mode='mix';const engine=document.getElementById('engine'),openEngine=document.getElementById('openEngine');
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;openEngine.textContent=mode==='mix'?'Abrir motor para trocar a pessoa':'Abrir motor para animar a minha foto';document.querySelector('.notice').innerHTML=mode==='mix'?'<b>Como usar:</b> carrega uma imagem tua (de corpo inteiro para melhores resultados) e um vídeo curto. Escolhe <b>Mix / Character Swap</b> para substituir a pessoa.':'<b>Como usar:</b> carrega uma imagem tua e um vídeo curto com os movimentos que queres copiar. Escolhe <b>Move / Pose Retarget</b> para animar a tua imagem.';}));
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
